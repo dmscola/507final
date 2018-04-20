@@ -377,6 +377,7 @@ def barGraph(movieList):
 	boxOffice = []
 	movieList2 = []
 
+
 	for elem in movieList:
 		if elem.BoxOfficeEarnings == "N/A":
 			pass
@@ -386,6 +387,15 @@ def barGraph(movieList):
 	for elem in movieList2:
 		names.append(elem.title)
 		boxOffice.append(elem.BoxOfficeEarnings)
+	vals = 0
+
+	for elem in boxOffice:
+		vals = vals + int(elem)
+
+	averageBO = (vals/len(boxOffice))
+	averageBO = round(averageBO,0)
+
+
 
 	print("Found Box Office Earnings data for " + str(len(boxOffice)) + " movies")
 
@@ -393,13 +403,20 @@ def barGraph(movieList):
 	trace1 = go.Bar(
 	x=names,
 	y=boxOffice,
-    name='Movies',
+	name = "Movies",
     marker=dict(
         color='rgb(55, 83, 109)'
     )
 )
-
-	data = [trace1]
+	trace2 = go.Bar(
+	x="Average Box Office Earnings",
+	y=averageBO,
+    name='Average Earnings',
+    marker=dict(
+        color='rgb(213, 74, 225)'
+    )
+)
+	data = [trace1, trace2]
 	layout = go.Layout(
 		title='Box Office Earnings of Movies',
 		xaxis=dict(
@@ -494,17 +511,48 @@ def scatterPlot(movieList):
 		scores.append(float(elem.IMDB))
 		names.append(elem.title)
 
+	vals= 0
+	vals2= 0
+	for elem in scores:
+		vals = vals + float(elem)
+
+	averageIMDB = (vals/len(scores))
+
+	averageIMDB = round(averageIMDB,1)
+
+	for elem in years:
+		vals2 = vals2 + int(elem)
+
+	averageYear = (vals2/len(years))
+	averageYear = round(averageYear,0)
+
+
+	
+
 
 
 	trace = go.Scatter(
 	x = years,
 	y = scores,
 	text = names,
+	name = "Movie",
 	textposition = "bottom",
 	mode = 'markers',
 	marker = dict(
 		size = 5,
 		color = 'rgb(247, 146, 39)'
+		))
+
+	trace2 = go.Scatter(
+		x= averageYear,
+		y = averageIMDB,
+		text = "AVERAGE IMDB SCORE AND YEAR",
+		name = "Average",
+		textposition = "bottom",
+		mode = 'markers',
+		marker = dict(
+			size = 10,
+			color = 'rgb(155, 115, 39)'
 		))
 
 	layout=go.Layout(
@@ -521,7 +569,7 @@ def scatterPlot(movieList):
 			gridwidth =2,),
 		showlegend = False)
 
-	data = [trace]
+	data = [trace, trace2]
 
 	fig= go.Figure(data=data, layout=layout)
 	py.plot(fig, filename='Movie Scatter Plot')
@@ -597,7 +645,7 @@ def interactive_prompt():
 
     print("\n")
     print("100 terms have been searched on Online Movie Database")
-    print("1. View scatter slot of Movie IMDB Scores")
+    print("1. View scatter plot of Movie IMDB Scores")
     print("2. View pie chart of Movie Genres")
     print("3. View world map of Movie Country of Origin")
     print("4. View bar graph of Movie Box Office Earnings")

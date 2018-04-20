@@ -1,6 +1,7 @@
 # Byte-compiled / optimized / DLL files
 
 secrets.py
+env1
 __pycache__/
 *.py[cod]
 *$py.class

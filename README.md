@@ -36,7 +36,9 @@ Run 'lyrics.py' file from terminal. Program will welcome the user and the prompt
 2. View pie chart of Movie Genres
 3. View world map of Movie Country of Origin
 4. View bar graph of Movie Box Office Earnings
+
 Inputting a number (1-4) will graph the results of the 100 words when the are searched on the Open Movie Database API. Below is a description of each of the presentation options and what they include:
+
 
 1. a scatter plot to display the IMDB score of each movie vs. the year is was released
 2. a pie chart to display what percentage of the movies belong to each genre (i.e. drama, comedy, action etc.)

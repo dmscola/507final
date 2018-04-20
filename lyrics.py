@@ -11,13 +11,17 @@ import requests
 import string
 import pycountry
 import plotly.graph_objs as go
+import secrets
+
+
+apikey = secrets.api_key
+
 
  
 DBNAME = 'media1.db'
 
 global word_list 
 word_list =[]
-apikey = 'f2b78768'
 word_input = 'Gump' 
 
 
@@ -37,6 +41,9 @@ class Movie(object):
 		self.BoxOfficeEarnings = BoxOfficeEarnings
 		self.word = word
 		self.year = year
+		out = "".join(c for c in BoxOfficeEarnings if c not in ('$',','))
+		self.BoxOfficeEarnings = out
+
 
 
 
@@ -228,7 +235,7 @@ def frequency(artist, song):
             pass
     update1 = []
     for elem in updated_tokens:
-    	out = "".join(c for c in elem if c not in ('!','.',':',',','(',')'))
+    	out = "".join(c for c in elem if c not in ('!','.',':',',','(',')','\r'))
     	update1.append(out)
 
 
@@ -242,11 +249,14 @@ def frequency(artist, song):
         if elem not in stop:
             final_tokens.append(elem)
 
+    final2 = []
     for elem in final_tokens:
-        if elem in word_list:
-            final_tokens.remove(elem)
+    	if elem in word_list:
+    		pass
+    	else:
+    		final2.append(elem)
 
-    fdist = nltk.FreqDist(final_tokens)
+    fdist = nltk.FreqDist(final2)
     print("The 10 most common words from this song are:")
     words = fdist.most_common(10)
 
@@ -278,6 +288,8 @@ def insertMovie(movie, word):
     except:
         pass
 
+    if name == "NULL" and year == "NULL":
+    	print("*** Search Word '" + word + "' returned no results on OMDB. ***")
 
     movie = (name, imdbRating, genre, country, boxoffice, year, word)
 
@@ -359,6 +371,68 @@ def worldMap(movieList):
 	fig = dict( data=data, layout=layout )
 	py.plot( fig, validate=False, filename='d3-world-map' )
 
+def barGraph(movieList):
+
+	names = []
+	boxOffice = []
+	movieList2 = []
+
+	for elem in movieList:
+		if elem.BoxOfficeEarnings == "N/A":
+			pass
+		else:
+			movieList2.append(elem)
+
+	for elem in movieList2:
+		names.append(elem.title)
+		boxOffice.append(elem.BoxOfficeEarnings)
+
+	print("Found Box Office Earnings data for " + str(len(boxOffice)) + " movies")
+
+
+	trace1 = go.Bar(
+	x=names,
+	y=boxOffice,
+    name='Movies',
+    marker=dict(
+        color='rgb(55, 83, 109)'
+    )
+)
+
+	data = [trace1]
+	layout = go.Layout(
+		title='Box Office Earnings of Movies',
+		xaxis=dict(
+	    tickfont=dict(
+	    	size=14,
+    	    color='rgb(107, 107, 107)'
+    	    )
+	    ),
+	    yaxis=dict(
+	    	title='USD',
+	    	titlefont=dict(
+	    		size=16,
+	    		color='rgb(107, 107, 107)'
+	    		),
+	    	tickfont=dict(
+	    		size=14,
+	    		color='rgb(107, 107, 107)'
+	    		)
+	    	),
+	    legend=dict(
+	    	x=0,
+	    	y=1.0,
+	    	bgcolor='rgba(255, 255, 255, 0)',
+	    	bordercolor='rgba(255, 255, 255, 0)'
+	    	),
+	    barmode='group',
+	    bargap=0.15,
+	    bargroupgap=0.1
+	    )
+
+	fig = go.Figure(data=data, layout=layout)
+	py.plot(fig, filename='Movie Box Office Earnings')
+
 def pieChart(movieList):
 	labels = []
 	values = []
@@ -409,7 +483,6 @@ def scatterPlot(movieList):
 	names = []
 
 	movieList2 = []
-	print(len(movieList))
 	for elem in movieList:
 		if elem.IMDB == "N/A":
 			pass
@@ -421,14 +494,18 @@ def scatterPlot(movieList):
 		scores.append(float(elem.IMDB))
 		names.append(elem.title)
 
-	print(len(years), len(scores), len(names))
+
 
 	trace = go.Scatter(
 	x = years,
 	y = scores,
 	text = names,
 	textposition = "bottom",
-	mode = 'markers')
+	mode = 'markers',
+	marker = dict(
+		size = 5,
+		color = 'rgb(247, 146, 39)'
+		))
 
 	layout=go.Layout(
 		title='IMDB Scores of Movies',
@@ -478,6 +555,7 @@ def interactive_prompt():
                 parameters['apikey'] = apikey
 
                 insertMovie(make_request_using_cache(base_url, parameters),word[2])
+            count = count +1
 
 
                 
@@ -487,7 +565,7 @@ def interactive_prompt():
             print("Unable to find song data for your inputs. Please enter a valid artist and song name")
 
    
-        count = count +1
+        
 
 
     try:
@@ -516,7 +594,9 @@ def interactive_prompt():
 
 
 
+
     print("\n")
+    print("100 terms have been searched on Online Movie Database")
     print("1. View scatter slot of Movie IMDB Scores")
     print("2. View pie chart of Movie Genres")
     print("3. View world map of Movie Country of Origin")
@@ -530,7 +610,7 @@ def interactive_prompt():
     	elif selection == '3':
     		worldMap(movieList)
     	elif selection == '4':
-    		print("put pie chart here")
+    		barGraph(movieList)
     	elif selection =="--exit":
     		print("Goodbye")
     	else:

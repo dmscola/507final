@@ -43,6 +43,8 @@ Movie: class used to handle returns from the Movie Table of Media Database. Used
 
 
 User Guide:
+Downloading and keeping the cache files for this project are strongly encouraged. This program must make 100 calls to the OMDB API (one for each word) if it completely starts over without a cache. This process can take a long time.
+
 Run 'lyrics.py' file from terminal. Program will welcome the user and the prompt the user to input 10 artist names and song titles. For each song, the program will prompt for artist name then song title. If the song cannot be located on azlyrics, the user will receive an error message and will be asked to enter a valid song. Once a valid song is found, the program will find the 10 most common words from the song, and for each word print to the terminal the artist name, song title, word, and how many times the word appeared in the lyrics. Typing '--exit' at any time will end the program. Once 10 songs have been input, the program will prompt the user with 4 display options:
 
 1. View scatter slot of Movie IMDB Scores

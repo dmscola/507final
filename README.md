@@ -7,14 +7,14 @@ This project is a web scraper that asks the user to input 10 different songs and
 
 Data Sources Used:
 Lyric scraper:
-  https://www.azlyrics.com/lyrics/<<artistname>>/]<<songtitle>>.html
+  https://www.azlyrics.com/lyrics/<<artistname>>/<<songtitle>>.html
   example: https://www.azlyrics.com/lyrics/johnnycash/hurt.html
   How it is used: Scraping HTML content using beautiful soup, programs scrapes the lyrics from the page and uses NLTK to find the most       common words from the page, and eventually forms the records for the Words table.
   Requirements to use this data source: Beautiful soup
   
 Open Movie Database API:
   http://www.omdbapi.com/
-  exampleL http://www.omdbapi.com/?t=Real&type=movie&apikey=<<APIKEY>>
+  example: http://www.omdbapi.com/?t=Real&type=movie&apikey=<<APIKEY>>
   How it is used: Search terms are placed in the "t" parameter of the call and the API responds with 1 movie instance from the API that     matches the search term. This API response is used to form the Movie Class and eventually forms the records for the Movies table.
   Requirements to use this data sources: OMDB API key. API key is needed in order to access API results, see http://www.omdbapi.com/apikey.aspx to request a key. API Key must be placed in a file called "secrets.py" with the contents of the file being: api_key = 'XXXXXXXX' where XXXXXXXX is your API Key.
   

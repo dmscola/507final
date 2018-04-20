@@ -25,13 +25,8 @@ movieList - list of instances of Movie class. Used as parameter for calling pres
 words - list of tuplies; return of frequency() function. Used to display word frequency distribution and used as basis for inserting records into Word table.
 Classes: Movie: class used to handle returns from the Movie Table of Media Database. Used to form movieList for calling presentation options and to strip extra characters or modify values from the database so that plotly can handle the input data.
 
-<<<<<<< HEAD
-Data Processing: Data processing for presentation is largely done through frequency distribution. Frequency distribution is run on all songs in order to find the 10 most common words from each song. Frequency distribution is also used to calculate percentages of each genre for movie genre pie chart and for world map of movie country of origin. This processing is completed through lists of tuples to represent the data object label and its value. This processing occurs inside the function that calls the presentation option (pieChart() and worldMap()). Additionally, data processing also occurs in presentation options for Bar Graph and Scatter Plot. Inside their presentation function, the program calculates the average IMDB score and average Box office earnings respectively. These averages are displayed alongside the output in the plotly graphs.
-=======
-Data Processing:
-Data processing for presentation is largely done through frequency distribution. Frequency distribution is run on all songs in order to find the 10 most common words from each song. Frequency distribution is also used to calculate percentages of each genre for movie genre pie chart and for world map of movie country of origin. This processing is completed through lists of tuples to represent the data object label and its value. This processing occurs inside the function that calls the presentation option (pieChart() and worldMap())
 
->>>>>>> 2ead04652d8a51310d9f7d99e645ef59ce06f078
+Data Processing: Data processing for presentation is largely done through frequency distribution. Frequency distribution is run on all songs in order to find the 10 most common words from each song. Frequency distribution is also used to calculate percentages of each genre for movie genre pie chart and for world map of movie country of origin. This processing is completed through lists of tuples to represent the data object label and its value. This processing occurs inside the function that calls the presentation option (pieChart() and worldMap()). Additionally, data processing also occurs in presentation options for Bar Graph and Scatter Plot. Inside their presentation function, the program calculates the average IMDB score and average Box office earnings respectively. These averages are displayed alongside the output in the plotly graphs.
 
 User Guide: Downloading and keeping the cache files for this project are strongly encouraged. This program must make 100 calls to the OMDB API (one for each word) if it completely starts over without a cache. This process can take a long time.
 
@@ -41,7 +36,9 @@ Run 'lyrics.py' file from terminal. Program will welcome the user and the prompt
 2. View pie chart of Movie Genres
 3. View world map of Movie Country of Origin
 4. View bar graph of Movie Box Office Earnings
+
 Inputting a number (1-4) will graph the results of the 100 words when the are searched on the Open Movie Database API. Below is a description of each of the presentation options and what they include:
+
 
 1. a scatter plot to display the IMDB score of each movie vs. the year is was released
 2. a pie chart to display what percentage of the movies belong to each genre (i.e. drama, comedy, action etc.)

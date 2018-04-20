@@ -47,5 +47,7 @@ Inputting a number (1-4) will graph the results of the 100 words when the are se
 
 NOTE Presentation option 4 will usually not graph 100 data points. This is because the OMDB API does not box office earnings listed for all movies (especially movies from earlier decades). The program will inform the user how many movies it was able to find box office earnings data for while creating the plotly graph
 
+Sample database has been provided for running the code for demo and for grading (spoke with Kristen). The program will default to this database while running and will not use user inputted songs for presentation options. To use your own input, in lyrics.py change line 21 to be "DBNAME = 'media.db'"
+
   
   

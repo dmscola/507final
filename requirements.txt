@@ -8,7 +8,7 @@ ipython-genutils==0.2.0
 jsonschema==2.6.0
 jupyter-core==4.4.0
 nbformat==4.4.0
-nltk==3.2.5
+nltk==3.6.3
 plotly==2.5.1
 pycountry==18.2.23
 pytz==2018.4
